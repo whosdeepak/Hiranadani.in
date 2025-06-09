@@ -78,7 +78,7 @@ export const About: React.FC = () => {
           <div className="relative">
             <div className="absolute -inset-4 bg-blue-100 rounded-tr-3xl rounded-bl-3xl transform rotate-3 z-0"></div>
             <img 
-              src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" 
+              src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fconstructionnarchitecture.com%2Frbi-quote-dr-niranjan-hiranandani%2F&psig=AOvVaw2VzQwsDT3ogJbMq3yHs4xz&ust=1749528081045000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCND02pa6440DFQAAAAAdAAAAABAE?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" 
               alt="Hiranandani Cone Building" 
               className="relative z-10 w-full h-[500px] object-cover rounded-tr-3xl rounded-bl-3xl shadow-xl"
             />
