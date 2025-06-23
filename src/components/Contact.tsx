@@ -1,32 +1,44 @@
 import { useState } from 'react';
+import emailjs from 'emailjs-com';
 
 export const Contact = () => {
   const [form, setForm] = useState({ name: '', email: '', message: '' });
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setSuccess(false);
 
-    const res = await fetch('/api/send-email', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(form),
-    });
+    const templateParams = {
+      user_name: form.name,
+      user_email: form.email,
+      message: form.message,
+    };
 
-    setLoading(false);
-    if (res.ok) {
-      setForm({ name: '', email: '', message: '' });
-      setSuccess(true);
-    } else {
-      alert('Error sending message');
-    }
+    emailjs
+      .send(
+        'service_vdn4gvb', // ✅ NEW Service ID
+        'template_8hanr5e', // ✅ NEW Template ID
+        templateParams,
+        'BR0L7JmseCfPErM5Q' // ✅ NEW Public Key
+      )
+      .then(() => {
+        setForm({ name: '', email: '', message: '' });
+        setSuccess(true);
+      })
+      .catch((error) => {
+        console.error('EmailJS error:', error);
+        alert('❌ Failed to send message');
+      })
+      .finally(() => setLoading(false));
   };
 
   return (
