@@ -10,4 +10,46 @@
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
+  <script>
+(function () {
+  const chatBubble = document.createElement("div");
+  chatBubble.innerHTML = "💬";
+  chatBubble.style.position = "fixed";
+  chatBubble.style.bottom = "20px";
+  chatBubble.style.right = "20px";
+  chatBubble.style.width = "60px";
+  chatBubble.style.height = "60px";
+  chatBubble.style.borderRadius = "50%";
+  chatBubble.style.backgroundColor = "#1a1a1a";
+  chatBubble.style.color = "#fff";
+  chatBubble.style.display = "flex";
+  chatBubble.style.alignItems = "center";
+  chatBubble.style.justifyContent = "center";
+  chatBubble.style.fontSize = "28px";
+  chatBubble.style.cursor = "pointer";
+  chatBubble.style.zIndex = "9999";
+  chatBubble.style.boxShadow = "0 2px 10px rgba(0,0,0,0.3)";
+
+  const iframe = document.createElement("iframe");
+  iframe.src = "https://campak-ai.vercel.app/";
+  iframe.style.position = "fixed";
+  iframe.style.bottom = "90px";
+  iframe.style.right = "20px";
+  iframe.style.width = "380px";
+  iframe.style.height = "600px";
+  iframe.style.border = "none";
+  iframe.style.zIndex = "9998";
+  iframe.style.borderRadius = "12px";
+  iframe.style.display = "none";
+  iframe.setAttribute("title", "CAMPAK Chatbot");
+
+  chatBubble.onclick = function () {
+    iframe.style.display = iframe.style.display === "none" ? "block" : "none";
+  };
+
+  document.body.appendChild(chatBubble);
+  document.body.appendChild(iframe);
+})();
+</script>
+
 
