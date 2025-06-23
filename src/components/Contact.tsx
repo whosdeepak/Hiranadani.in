@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import emailjs from 'emailjs-com';
 
 export const Contact = () => {
   const [form, setForm] = useState({ name: '', email: '', message: '' });
@@ -9,24 +10,32 @@ export const Contact = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setSuccess(false);
 
-    const res = await fetch('/api/send-email', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(form),
-    });
+    const templateParams = {
+      user_name: form.name,
+      user_email: form.email,
+      message: form.message,
+    };
 
-    setLoading(false);
-    if (res.ok) {
+    emailjs.send(
+      'service_w5rynig',         // ✅ Your Service ID
+      'template_j5gj2da',        // ✅ Your Template ID
+      templateParams,
+      'CX_OvekmICLYgv8CH'        // ✅ Your Public Key
+    )
+    .then(() => {
       setForm({ name: '', email: '', message: '' });
       setSuccess(true);
-    } else {
-      alert('Error sending message');
-    }
+    })
+    .catch((error) => {
+      console.error('EmailJS error:', error);
+      alert('❌ Failed to send message');
+    })
+    .finally(() => setLoading(false));
   };
 
   return (
